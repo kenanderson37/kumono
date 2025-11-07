@@ -41,7 +41,7 @@ impl PostFile {
     }
 
     pub fn to_name(&self) -> String {
-        PathBuf::from(self.path.as_ref().expect("get path from PostFile"))
+        PathBuf::from(self.name.as_ref().expect("get path from PostFile"))
             .file_name()
             .expect("get file name from CDN path")
             .to_string_lossy()
