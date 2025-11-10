@@ -47,6 +47,14 @@ impl PostFile {
             .to_string_lossy()
             .to_string()
     }
+    
+    pub fn to_hash_str(&self) -> String {
+    PathBuf::from(self.name.as_ref().expect("get path from PostFile"))
+        .file_name()
+        .expect("get file name from CDN path")
+        .to_string_lossy()
+        .to_string()
+    }
 
     pub fn to_temp_name(&self) -> String {
         self.to_name() + ".temp"
@@ -67,7 +75,7 @@ impl PostFile {
     }
 
     pub fn to_hash(&self) -> Option<String> {
-        Some(HASH_RE.captures(&self.to_name())?.name("hash")?.as_str().to_string())
+        Some(HASH_RE.captures(&self.to_hash_str())?.name("hash")?.as_str().to_string())
     }
 
     pub async fn open(&self, target: &Target) -> Result<File> {
